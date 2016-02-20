@@ -12,6 +12,7 @@ class Tinymce extends InputWidget
 {
 
     public $pluginOptions = [];
+    public $fileManagerOptions = [];
 
     public function init()
     {
@@ -34,6 +35,7 @@ class Tinymce extends InputWidget
 
     public function run()
     {
+
         if ($this->hasModel()) {
 
             if (!ArrayHelper::getValue($this->options, 'id')) {
@@ -66,8 +68,8 @@ class Tinymce extends InputWidget
         //set up external plugin
         $this->pluginOptions['external_plugins']['filemanager'] = $instance->baseUrl . '/filemanager/plugin.min.js';
         //relative path from web folder
-        if (ArrayHelper::getValue($this->options, 'configPath')) {
-            $configPath = ArrayHelper::getValue($this->options, 'configPath');
+        if (ArrayHelper::getValue($this->fileManagerOptions, 'configPath')) {
+            $configPath = ArrayHelper::getValue($this->fileManagerOptions, 'configPath');
         } else {
             $configPath = [
                 //path from base_url to base of upload folder with start and final /

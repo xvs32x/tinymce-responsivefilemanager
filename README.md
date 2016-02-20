@@ -8,8 +8,8 @@ composer require xvs32x/tinymce-responsivefilemanager
 First, create @web/uploads/filemanager/source and @web/uploads/filemanager/thumbs folders
 
 ```php
-$form->field($model, 'title')->widget(\xvs32x\tinymce\Tinymce::className([
-    //TinyMCE options
+$form->field($model, 'title')->widget(\xvs32x\tinymce\Tinymce::className(), [
+        //TinyMCE options
         'pluginOptions' => [
             'plugins' => [
                 "advlist autolink link image lists charmap print preview hr anchor pagebreak",
@@ -23,7 +23,7 @@ $form->field($model, 'title')->widget(\xvs32x\tinymce\Tinymce::className([
             'language' => ArrayHelper::getValue(explode('_', Yii::$app->language), '0', Yii::$app->language),
         ],
         //Widget Options
-        'options' => [
+        'fileManagerOptions' => [
             //Upload Manager Configuration
             'configPath' => [
                 //path from base_url to base of upload folder with start and final /
@@ -34,5 +34,5 @@ $form->field($model, 'title')->widget(\xvs32x\tinymce\Tinymce::className([
                 'thumbs_base_path' => '../../../uploads/filemanager/thumbs/'
             ]
         ]
-    ]))
+    ])
 ```
