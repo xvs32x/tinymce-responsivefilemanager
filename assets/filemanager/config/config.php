@@ -4,37 +4,15 @@
  * WARNING
  * IS NOT ORIGINAL CONFIG
  * */
-defined('YII_ENV') or define('YII_ENV', 'dev');
-//get autoload
-$autoload = '../../../../vendor/autoload.php';
-if(!is_file($autoload) || !is_readable($autoload)){
-    exit('FATAL! Yii autoload file not found!');
-}
-require($autoload);
-
-//get Yii2 main file
-//$yii2Path = '../../../../vendor/yiisoft/yii2/Yii.php';
-$yii2Path = '../../../../vendor/nagser/base/Yii.php';
-//Get Yii2 config file
-if(!is_file($yii2Path) || !is_readable($yii2Path)){
-    exit('FATAL! Yii.php (Yii2 main file) not found!');
-}
-require($yii2Path);
-$configPath = urldecode($_GET['akey']);
-
-//Get Yii2 config file
-if(!is_file($configPath) || !is_readable($configPath)){
-    exit('FATAL! Yii2 config file path is not set or not correct!');
-}
-$config = require($configPath);
-//var_dump(yii\web\Application::className());
-//var_dump((new nagser\base\components\BaseConfigurator())->config);
-//new yii\web\Application($config);
-new yii\web\Application((new nagser\base\components\BaseConfigurator())->config);
 
 session_start();
 mb_internal_encoding('UTF-8');
 date_default_timezone_set('Europe/Rome');
+
+if ($_GET['akey']) {
+    $_SESSION['uploadPath'] = $_GET['akey'];
+}
+$uploadPath = unserialize(urldecode($_SESSION['uploadPath']));
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +56,8 @@ define('USE_ACCESS_KEYS', false); // TRUE or FALSE
 |    |   |   |   |   |- plugin.min.js
 */
 
+
+
 $config = array(
 
 	/*
@@ -99,7 +79,7 @@ $config = array(
 	| with start and final /
 	|
 	*/
-	'upload_dir' => '/source/',
+	'upload_dir' => $uploadPath['upload_dir'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -109,7 +89,9 @@ $config = array(
 	| with final /
 	|
 	*/
-	'current_path' => '../source/',
+	'current_path' => $uploadPath['current_path'],
+
+
 
 	/*
 	|--------------------------------------------------------------------------
@@ -120,7 +102,7 @@ $config = array(
 	| DO NOT put inside upload folder
 	|
 	*/
-	'thumbs_base_path' => '../thumbs/',
+	'thumbs_base_path' => $uploadPath['thumbs_base_path'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -316,7 +298,7 @@ $config = array(
 	/*******************
 	 * JAVA upload
 	 *******************/
-	'java_upload'                             => true,
+	'java_upload'                             => false,
 	'JAVAMaxSizeUpload'                       => 200, //Gb
 
 

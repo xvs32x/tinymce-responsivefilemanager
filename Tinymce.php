@@ -8,13 +8,15 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
 
-class Tinymce extends InputWidget {
+class Tinymce extends InputWidget
+{
 
     public $pluginOptions = [];
 
-    public function init(){
+    public function init()
+    {
         parent::init();
-        if(!$this->pluginOptions){
+        if (!$this->pluginOptions) {
             $this->pluginOptions = [
                 'plugins' => [
                     "advlist autolink link image lists charmap print preview hr anchor pagebreak",
@@ -22,25 +24,26 @@ class Tinymce extends InputWidget {
                     "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
                 ],
                 'toolbar1' => "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-                'toolbar2' => "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+                'toolbar2' => "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor ",
                 'image_advtab' => true,
-
-                'filemanager_title' => "Responsive Filemanager" ,
+                'filemanager_title' => "Filemanager",
+                'language' => ArrayHelper::getValue(explode('-', Yii::$app->language), '0', Yii::$app->language),
             ];
         }
     }
 
-    public function run(){
+    public function run()
+    {
         if ($this->hasModel()) {
 
-            if(!ArrayHelper::getValue($this->options, 'id')){
+            if (!ArrayHelper::getValue($this->options, 'id')) {
                 $this->options['id'] = Html::getInputId($this->model, $this->attribute);
             }
 
             echo Html::activeTextarea($this->model, $this->attribute, $this->options);
         } else {
 
-            if(!ArrayHelper::getValue($this->options, 'id')){
+            if (!ArrayHelper::getValue($this->options, 'id')) {
                 $this->options['id'] = Html::getAttributeName($this->name . rand(1, 9999));
             }
 
@@ -54,24 +57,35 @@ class Tinymce extends InputWidget {
      * @param TinymceAsset $instance
      * @return string
      * */
-    public function setOptions($instance){
+    public function setOptions($instance)
+    {
         //set up filemanager path
-        if(!ArrayHelper::getValue($this->pluginOptions, 'external_filemanager_path')){
+        if (!ArrayHelper::getValue($this->pluginOptions, 'external_filemanager_path')) {
             $this->pluginOptions['external_filemanager_path'] = $instance->baseUrl . '/filemanager/';
         }
-        //set up Yii2 main file config
-        if(ArrayHelper::getValue($this->options, 'configPath')){
+        //set up external plugin
+        $this->pluginOptions['external_plugins']['filemanager'] = $instance->baseUrl . '/filemanager/plugin.min.js';
+        //relative path from web folder
+        if (ArrayHelper::getValue($this->options, 'configPath')) {
             $configPath = ArrayHelper::getValue($this->options, 'configPath');
         } else {
-            $configPath = Yii::getAlias('@app') . '/config/web.php';
+            $configPath = [
+                //path from base_url to base of upload folder with start and final /
+                'upload_dir' => '/uploads/filemanager/source/',
+                //relative path from filemanager folder to upload folder with final /
+                'current_path' => '../../../uploads/filemanager/source/',
+                //relative path from filemanager folder to thumbs folder with final / (DO NOT put inside upload folder)
+                'thumbs_base_path' => '../../../uploads/filemanager/thumbs/'
+            ];
         }
         //decode and send as access_key
-        $this->pluginOptions['filemanager_access_key'] = urlencode($configPath);
+        $this->pluginOptions['filemanager_access_key'] = urlencode(serialize($configPath));
         $id = $this->options['id'];
-        return Json::encode(ArrayHelper::merge(['selector' => '#'.$id], $this->pluginOptions));
+        return Json::encode(ArrayHelper::merge(['selector' => '#' . $id], $this->pluginOptions));
     }
 
-    public function registerAssets(){
+    public function registerAssets()
+    {
         $view = $this->getView();
         $instance = TinymceAsset::register($view);
         $options = $this->setOptions($instance);
