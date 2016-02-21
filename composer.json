@@ -1,0 +1,27 @@
+{
+    "name": "xvs32x/tinymce-responsivefilemanager",
+    "type": "yii2-extension",
+
+    "description": "TinyMCE + Responsive file manager widget for Yii2",
+    "keywords": ["xvs32x"],
+    "license": "GPL-3.0+",
+    "support": {
+        "source": "https://github.com/xvs32x/tinymce-responsivefilemanager"
+    },
+    "authors": [
+        {
+            "name": "xvs32x",
+            "email": "x64vs32x@mail.ru"
+        }
+    ],
+
+    "require": {
+        "yiisoft/yii2": "2.0.*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "xvs32x\\tinymce\\": ""
+        }
+    }
+}
