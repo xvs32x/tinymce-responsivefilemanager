@@ -52,3 +52,16 @@ $form->field($model, 'title')->widget(\xvs32x\tinymce\Tinymce::className(), [
   ]
 
 ```
+
+##Yii2 JS validation fix
+
+```php
+  'pluginOptions' => [
+      'setup' => new \yii\web\JsExpression("function(editor){
+            editor.on('change', function () {
+            editor.save();
+            });
+      }"),
+                 
+   ],
+```
