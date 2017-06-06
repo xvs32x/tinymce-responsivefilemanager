@@ -5,7 +5,7 @@ TinyMCE 4.6.3 + responsivefilemanager 9.9.7
 
 ~~composer require xvs32x/tinymce-responsivefilemanager~~
 
-Add to your composer
+While the original repository not upfdated you can use this by adding to your composer
 ```
     "require": {
         ...
