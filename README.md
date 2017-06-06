@@ -1,5 +1,5 @@
 # tinymce-responsivefilemanager
-TinyMCE 4.3.4 + responsivefilemanager 9.9.7
+TinyMCE 4.6.3 + responsivefilemanager 9.9.7
 
 ##Installation
 composer require xvs32x/tinymce-responsivefilemanager
