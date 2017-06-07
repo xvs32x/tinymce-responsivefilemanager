@@ -1,8 +1,37 @@
 # tinymce-responsivefilemanager
-TinyMCE 4.3.4 + responsivefilemanager 9.9.7
+TinyMCE 4.6.3 + responsivefilemanager 9.9.7
 
 ##Installation
-composer require xvs32x/tinymce-responsivefilemanager
+
+~~composer require xvs32x/tinymce-responsivefilemanager~~
+
+While the original repository not updated you can use this by adding to your composer.json
+```
+    "require": {
+        ...
+        "xvs32x/tinymce-responsivefilemanager": "1.0"
+        ...
+    },
+    "repositories": [
+    {
+        "type": "package",
+        "package": {
+            "name": "xvs32x/tinymce-responsivefilemanager",
+            "version": "1.0",
+            "source": {
+                "url": "https://github.com/orlov0562/tinymce-responsivefilemanager.git",
+                "type": "git",
+                "reference": "master"
+            },
+            "autoload": {
+                "psr-4": {
+                    "xvs32x\\tinymce\\": "",
+                    "xvs32x\\rfm\\": ""
+                }
+            }
+        }
+    }]
+```
 
 ##Usage:
 First, create @web/uploads/filemanager/source and @web/uploads/filemanager/thumbs folders
