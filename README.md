@@ -1,39 +1,11 @@
 # tinymce-responsivefilemanager
 TinyMCE 4.6.3 + responsivefilemanager 9.9.7
 
-##Installation
+### Installation
 
-~~composer require xvs32x/tinymce-responsivefilemanager~~
+composer require xvs32x/tinymce-responsivefilemanage
 
-While the original repository not updated you can use this by adding to your composer.json
-```
-    "require": {
-        ...
-        "xvs32x/tinymce-responsivefilemanager": "1.0"
-        ...
-    },
-    "repositories": [
-    {
-        "type": "package",
-        "package": {
-            "name": "xvs32x/tinymce-responsivefilemanager",
-            "version": "1.0",
-            "source": {
-                "url": "https://github.com/orlov0562/tinymce-responsivefilemanager.git",
-                "type": "git",
-                "reference": "master"
-            },
-            "autoload": {
-                "psr-4": {
-                    "xvs32x\\tinymce\\": "",
-                    "xvs32x\\rfm\\": ""
-                }
-            }
-        }
-    }]
-```
-
-##Usage:
+###Usage:
 First, create @web/uploads/filemanager/source and @web/uploads/filemanager/thumbs folders
 
 ```php
@@ -66,7 +38,7 @@ $form->field($model, 'title')->widget(\xvs32x\tinymce\Tinymce::className(), [
     ])
 ```
 
-##Yii2 Advanced template ready!
+### Yii2 Advanced template ready!
 
 ```php
  [
@@ -82,7 +54,7 @@ $form->field($model, 'title')->widget(\xvs32x\tinymce\Tinymce::className(), [
 
 ```
 
-##Yii2 JS validation fix
+### Yii2 JS validation fix
 
 ```php
   'pluginOptions' => [
