@@ -3,7 +3,7 @@ TinyMCE 4.6.3 + responsivefilemanager 9.9.7
 
 ## Installation
 
-composer require xvs32x/tinymce-responsivefilemanage
+composer require xvs32x/tinymce-responsivefilemanager
 
 ### Usage:
 First, create @web/uploads/filemanager/source and @web/uploads/filemanager/thumbs folders
